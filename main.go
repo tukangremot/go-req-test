@@ -22,19 +22,19 @@ func main() {
 	if url == "" {
 		fmt.Println("Please set the URL in your environment")
 	} else {
-		countries, err := getData(url)
+		countries, err := getCountries(url)
 		if err != nil {
 			log.Fatal(err)
 		}
 
-		err = generateTable(countries)
+		err = generateHtmlTable(countries)
 		if err != nil {
 			log.Fatal(err)
 		}
 	}
 }
 
-func getData(url string) ([]Country, error) {
+func getCountries(url string) ([]Country, error) {
 	response, err := http.Get(url)
 	if err != nil {
 		log.Fatalln(err)
@@ -55,7 +55,7 @@ func getData(url string) ([]Country, error) {
 	return countries, nil
 }
 
-func generateTable(data []Country) error {
+func generateHtmlTable(data []Country) error {
 	var html = `<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>`
 	fmt.Printf("<table>")
 	for _, d := range data {
